@@ -1,0 +1,211 @@
+# 发布检查清单模板
+# Template ID: RLS-002
+
+id: RLS-002
+name: 发布检查清单
+version: v1.0
+phase: 发布
+status: 草稿
+created_at: YYYY-MM-DD
+updated_at: YYYY-MM-DD
+author: [作者]
+traces_to:
+  - TST-002  # 追溯到测试报告
+tags: [发布, 检查清单]
+
+# ==================== 发布信息 ====================
+
+release_info:
+  release_version: v1.0.0
+  release_date: YYYY-MM-DD
+  release_window: "22:00-24:00"
+  release_manager: [发布负责人]
+  environment: production  # staging / production
+
+# ==================== 变更内容 ====================
+
+changes:
+  features:
+    - id: BIZ-004
+      description: 功能描述
+    - id: BIZ-005
+      description: 功能描述
+
+  bug_fixes:
+    - id: BUG-001
+      description: 修复描述
+
+  improvements:
+    - description: 优化描述
+
+# ==================== 检查项 ====================
+
+checklist:
+  # 代码检查
+  code:
+    - item: 所有代码已合并到主分支
+      status: pending  # pending / passed / failed
+      verifier: [验证人]
+      notes: ""
+
+    - item: CI构建通过
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: 代码扫描无高危问题
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+  # 测试检查
+  test:
+    - item: 单元测试覆盖率 >= 80%
+      status: pending
+      actual_value: ""
+      verifier: [验证人]
+      notes: ""
+
+    - item: 集成测试通过
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: 性能测试通过
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: 安全测试通过
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: UAT验收通过
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+  # 环境检查
+  environment:
+    - item: 生产环境配置已确认
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: 数据库变更脚本已准备
+      status: pending
+      script_location: ""
+      verifier: [验证人]
+      notes: ""
+
+    - item: 环境变量已配置
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: 第三方服务连接正常
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+  # 回滚准备
+  rollback:
+    - item: 回滚方案已准备
+      status: pending
+      rollback_steps: ""
+      verifier: [验证人]
+      notes: ""
+
+    - item: 回滚脚本已测试
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: 数据备份已完成
+      status: pending
+      backup_location: ""
+      verifier: [验证人]
+      notes: ""
+
+  # 监控检查
+  monitoring:
+    - item: 监控告警已配置
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: 日志收集已配置
+      status: pending
+      verifier: [验证人]
+      notes: ""
+
+    - item: 值班人员已到位
+      status: pending
+      oncall_person: ""
+      notes: ""
+
+  # 通知检查
+  notification:
+    - item: 发布通知已发送
+      status: pending
+      recipients: []
+      notes: ""
+
+    - item: 相关方已确认
+      status: pending
+      notes: ""
+
+# ==================== 审批 ====================
+
+approvals:
+  - role: 技术负责人
+    name: [姓名]
+    status: pending  # pending / approved / rejected
+    approved_at: ""
+    comments: ""
+
+  - role: 产品负责人
+    name: [姓名]
+    status: pending
+    approved_at: ""
+    comments: ""
+
+  - role: 运维负责人
+    name: [姓名]
+    status: pending
+    approved_at: ""
+    comments: ""
+
+# ==================== 发布记录 ====================
+
+release_log:
+  - step: 开始发布
+    time: ""
+    operator: ""
+    status: pending
+    notes: ""
+
+  - step: 数据库变更
+    time: ""
+    operator: ""
+    status: pending
+    notes: ""
+
+  - step: 应用部署
+    time: ""
+    operator: ""
+    status: pending
+    notes: ""
+
+  - step: 冒烟测试
+    time: ""
+    operator: ""
+    status: pending
+    notes: ""
+
+  - step: 发布完成
+    time: ""
+    operator: ""
+    status: pending
+    notes: ""

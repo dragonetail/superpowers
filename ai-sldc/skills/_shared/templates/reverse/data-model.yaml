@@ -1,0 +1,86 @@
+# 数据模型
+# 此文档由 ai-sldc-sync 自动生成
+
+version: "1.0"
+generated_at: YYYY-MM-DD HH:mm
+database_type: [PostgreSQL / MySQL / MongoDB / ...]
+
+# ==================== 实体定义 ====================
+
+entities:
+  - name: [EntityName]
+    source: src/models/[EntityName].ts
+    table: [表名]  # 如果是关系数据库
+    description: [实体描述]
+
+    fields:
+      - name: id
+        type: string
+        db_type: uuid
+        required: true
+        primary_key: true
+        description: 主键
+
+      - name: createdAt
+        type: Date
+        db_type: timestamp
+        required: true
+        default: now()
+        description: 创建时间
+
+      - name: updatedAt
+        type: Date
+        db_type: timestamp
+        required: true
+        default: now()
+        description: 更新时间
+
+      - name: [fieldName]
+        type: [TypeScript类型]
+        db_type: [数据库类型]
+        required: true/false
+        default: [默认值]
+        unique: true/false
+        index: true/false
+        description: [字段描述]
+
+    relations:
+      - type: hasMany / belongsTo / hasOne / manyToMany
+        target: [TargetEntity]
+        foreign_key: [外键字段]
+        description: [关系描述]
+
+    indexes:
+      - fields: [[字段列表]]
+        unique: true/false
+
+  - name: [AnotherEntity]
+    source: src/models/[AnotherEntity].ts
+    # ... 同上
+
+# ==================== 枚举定义 ====================
+
+enums:
+  - name: [EnumName]
+    source: src/models/enums/[EnumName].ts
+    values:
+      - value: [VALUE_1]
+        label: [显示名称]
+      - value: [VALUE_2]
+        label: [显示名称]
+
+# ==================== 关系图 ====================
+
+# 可用 Mermaid 或文本描述
+relationship_diagram: |
+  [EntityA] 1--* [EntityB]
+  [EntityB] *--* [EntityC]
+  [EntityA] 1--1 [EntityD]
+
+# ==================== 追溯信息 ====================
+
+trace:
+  generated_by: ai-sldc-sync
+  source_files:
+    - src/models/
+  commit: [git commit hash]

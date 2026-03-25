@@ -1,0 +1,108 @@
+# 业务目标/KPI 模板
+# Template ID: PRJ-001
+
+id: PRJ-001
+name: 业务目标/KPI
+version: v1.0
+phase: 启动
+status: 草稿
+created_at: YYYY-MM-DD
+updated_at: YYYY-MM-DD
+author: [作者]
+traces_to: []
+tags: [业务目标, KPI]
+
+# ==================== 业务目标 ====================
+
+business_context:
+  background: |
+    [描述当前业务现状和背景]
+
+  pain_points:
+    - 痛点1: [描述]
+    - 痛点2: [描述]
+
+  opportunities:
+    - 机会1: [描述]
+
+business_goal:
+  statement: |
+    [SMART原则：具体、可衡量、可达成、相关、有时限]
+    作为 [业务方]，我希望 [达成什么目标]，以便于 [获得什么价值]
+
+  success_criteria:
+    - 准则1: [描述]
+    - 准则2: [描述]
+
+# ==================== 关键成功指标 ====================
+
+kpi:
+  - name: 指标名称1
+    description: 指标描述
+    current_value: 当前值
+    target_value: 目标值
+    unit: 单位
+    measurement_period: 衡量周期
+    measurement_method: 衡量方法
+
+  - name: 指标名称2
+    description: 指标描述
+    current_value: 当前值
+    target_value: 目标值
+    unit: 单位
+    measurement_period: 衡量周期
+    measurement_method: 衡量方法
+
+# ==================== 约束条件 ====================
+
+constraints:
+  time:
+    deadline: YYYY-MM-DD
+    milestones:
+      - 里程碑1: YYYY-MM-DD
+      - 里程碑2: YYYY-MM-DD
+
+  budget:
+    estimated: [预算估算]
+    currency: CNY
+
+  resources:
+    - 资源1: [描述]
+    - 资源2: [描述]
+
+  technical:
+    - 技术约束1: [描述]
+
+  compliance:
+    - 合规要求1: [描述]
+
+# ==================== 干系人 ====================
+
+stakeholders:
+  - role: 业务发起人
+    name: [姓名]
+    responsibilities: [职责]
+    influence: 高/中/低
+
+  - role: 产品负责人
+    name: [姓名]
+    responsibilities: [职责]
+    influence: 高/中/低
+
+  - role: 技术负责人
+    name: [姓名]
+    responsibilities: [职责]
+    influence: 高/中/低
+
+# ==================== 风险评估 ====================
+
+risks:
+  - risk: 风险描述
+    probability: 高/中/低
+    impact: 高/中/低
+    mitigation: 缓解措施
+
+  - risk: 风险描述
+    probability: 高/中/低
+    impact: 高/中/低
+    mitigation: 缓解措施

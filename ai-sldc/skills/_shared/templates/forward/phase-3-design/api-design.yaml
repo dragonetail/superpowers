@@ -1,0 +1,322 @@
+# API 设计模板 (OpenAPI 3.0)
+# Template ID: ARC-004
+
+openapi: 3.0.3
+
+info:
+  title: API名称
+  version: 1.0.0
+  description: |
+    API描述
+
+    ## 业务上下文
+    - 业务场景: [链接到 BIZ-005]
+    - 用户故事: [链接到 BIZ-004]
+    - 业务规则: [链接到 BIZ-003]
+
+  contact:
+    name: API负责人
+    email: email@example.com
+
+servers:
+  - url: https://api.example.com/v1
+    description: 生产环境
+  - url: https://api-staging.example.com/v1
+    description: 测试环境
+
+tags:
+  - name: Resource
+    description: 资源管理
+
+paths:
+  /resources:
+    get:
+      tags:
+        - Resource
+      summary: 获取资源列表
+      description: |
+        获取资源列表，支持分页和过滤。
+
+        业务规则:
+        - 规则1: [描述]
+        - 规则2: [描述]
+      operationId: listResources
+      parameters:
+        - name: page
+          in: query
+          description: 页码
+          required: false
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+        - name: pageSize
+          in: query
+          description: 每页数量
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: status
+          in: query
+          description: 状态过滤
+          required: false
+          schema:
+            type: string
+            enum: [active, inactive]
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListResponse'
+              example:
+                code: 0
+                message: success
+                data:
+                  - id: "res-001"
+                    name: "资源名称"
+                  - id: "res-002"
+                    name: "资源名称2"
+                pagination:
+                  page: 1
+                  pageSize: 20
+                  total: 100
+        '400':
+          description: 请求参数错误
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: 未授权
+        '500':
+          description: 服务器错误
+
+    post:
+      tags:
+        - Resource
+      summary: 创建资源
+      description: 创建新资源
+      operationId: createResource
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResourceRequest'
+            example:
+              name: "新资源"
+              type: "type-a"
+      responses:
+        '201':
+          description: 创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceResponse'
+        '400':
+          description: 请求参数错误
+        '401':
+          description: 未授权
+        '409':
+          description: 资源已存在
+
+  /resources/{id}:
+    get:
+      tags:
+        - Resource
+      summary: 获取资源详情
+      operationId: getResource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: 资源ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceResponse'
+        '404':
+          description: 资源不存在
+
+    put:
+      tags:
+        - Resource
+      summary: 更新资源
+      operationId: updateResource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateResourceRequest'
+      responses:
+        '200':
+          description: 更新成功
+        '404':
+          description: 资源不存在
+
+    delete:
+      tags:
+        - Resource
+      summary: 删除资源
+      operationId: deleteResource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 删除成功
+        '404':
+          description: 资源不存在
+
+components:
+  schemas:
+    # ==================== 请求模型 ====================
+
+    CreateResourceRequest:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          description: 资源名称
+          minLength: 1
+          maxLength: 100
+          # 追溯到业务对象模型 BIZ-002
+          x-traces-to: BIZ-002-Resource-name
+        type:
+          type: string
+          description: 资源类型
+          enum: [type-a, type-b, type-c]
+        description:
+          type: string
+          description: 资源描述
+          maxLength: 500
+
+    UpdateResourceRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+
+    # ==================== 响应模型 ====================
+
+    ResourceListResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 响应码
+        message:
+          type: string
+          description: 响应消息
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    ResourceResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Resource'
+
+    Resource:
+      type: object
+      description: 资源对象
+      # 追溯到业务对象模型 BIZ-002
+      x-traces-to: BIZ-002-Resource
+      properties:
+        id:
+          type: string
+          description: 资源ID
+        name:
+          type: string
+          description: 资源名称
+        type:
+          type: string
+          description: 资源类型
+        status:
+          type: string
+          enum: [active, inactive]
+          description: 状态
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: 当前页码
+        pageSize:
+          type: integer
+          description: 每页数量
+        total:
+          type: integer
+          description: 总数量
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 错误码
+        message:
+          type: string
+          description: 错误消息
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []

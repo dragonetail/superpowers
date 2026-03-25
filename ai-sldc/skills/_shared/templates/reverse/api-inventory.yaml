@@ -1,0 +1,118 @@
+# API 清单
+# 此文档由 ai-sldc-sync 自动生成
+
+version: "1.0"
+generated_at: YYYY-MM-DD HH:mm
+base_url: /api
+
+# ==================== 接口列表 ====================
+
+endpoints:
+  # -------------------- [模块名] --------------------
+  - group: [模块名]
+    base_path: /api/[module]
+    endpoints:
+      - path: /
+        method: GET
+        handler: [HandlerClass.method]
+        description: [功能描述]
+        request:
+          query:
+            - name: [参数名]
+              type: [类型]
+              required: true/false
+              description: [说明]
+          body: null
+        response:
+          type: [响应类型]
+          schema:
+            # 响应结构
+        auth_required: true/false
+
+      - path: /:id
+        method: GET
+        handler: [HandlerClass.method]
+        description: [功能描述]
+        request:
+          params:
+            - name: id
+              type: string
+              required: true
+        response:
+          type: [响应类型]
+
+      - path: /
+        method: POST
+        handler: [HandlerClass.method]
+        description: [功能描述]
+        request:
+          body:
+            type: [请求体类型]
+            fields:
+              - name: [字段名]
+                type: [类型]
+                required: true/false
+        response:
+          type: [响应类型]
+          status: 201
+
+      - path: /:id
+        method: PUT
+        handler: [HandlerClass.method]
+        request:
+          params:
+            - name: id
+              type: string
+          body:
+            type: [请求体类型]
+        response:
+          type: [响应类型]
+
+      - path: /:id
+        method: DELETE
+        handler: [HandlerClass.method]
+        request:
+          params:
+            - name: id
+              type: string
+        response:
+          status: 204
+
+# ==================== 公共定义 ====================
+
+common:
+  error_response:
+    type: object
+    fields:
+      - name: error
+        type: string
+      - name: message
+        type: string
+      - name: code
+        type: string
+
+  pagination:
+    type: object
+    fields:
+      - name: page
+        type: integer
+      - name: pageSize
+        type: integer
+      - name: total
+        type: integer
+
+# ==================== 认证说明 ====================
+
+authentication:
+  type: [Bearer / API Key / Session / None]
+  header: Authorization
+  format: "Bearer <token>"
+
+# ==================== 追溯信息 ====================
+
+trace:
+  generated_by: ai-sldc-sync
+  source_files:
+    - [源文件路径1]
+    - [源文件路径2]
+  commit: [git commit hash]
